@@ -77,12 +77,21 @@ public class Product extends IdBasedEntity {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ProductDetail> details = new ArrayList<>();
 
+	private int reviewCount;
+	private float averageRating;
+	
+	@Transient private boolean customerCanReview;
+	@Transient private boolean reviewedByCustomer;
 	
 	public Product(Integer id) {
 		this.id = id;
 	}
 
 	public Product() {
+	}
+	
+	public Product(String name) {
+		this.name = name;
 	}
 
 	public String getName() {
@@ -297,4 +306,43 @@ public class Product extends IdBasedEntity {
 		}
 		return this.price;
 	}
+
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+	public float getAverageRating() {
+		return averageRating;
+	}
+
+	public void setAverageRating(float averageRating) {
+		this.averageRating = averageRating;
+	}
+	
+	@Transient
+	public String getURI() {
+		return "/p/" + this.alias + "/";
+	}
+
+	public boolean isCustomerCanReview() {
+		return customerCanReview;
+	}
+
+	public void setCustomerCanReview(boolean customerCanReview) {
+		this.customerCanReview = customerCanReview;
+	}
+
+	public boolean isReviewedByCustomer() {
+		return reviewedByCustomer;
+	}
+
+	public void setReviewedByCustomer(boolean reviewedByCustomer) {
+		this.reviewedByCustomer = reviewedByCustomer;
+	}
+	
+	
 }
